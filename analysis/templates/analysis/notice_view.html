@@ -1,0 +1,29 @@
+{% extends "analysis/base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block script %}
+{% load static %}<SCRIPT SRC = "{% static 'analysis/assets/js/boards.js' %}"></SCRIPT>
+{% endblock %}
+
+{% block content %}
+<div class="row block-center board">
+	<div class="col-10">
+		<div class="row border-top-line">
+			<div class="col-9"><h2>{{ object.title }}</h2></div>
+			<div class="col-3 right"><h4>조회 {{ object.view_count }}</h4></div>
+		</div>
+		<div class="row border-bottom-line">
+			<div class="col-6"><h4>{{ object.user.name }}</h4></div>
+			<div class="col-6 right"><h4>{{ object.registered_date|date:"Y-m-d H:i:s" }}</h4></div>
+		</div>
+		<div class="row">
+			<div class="col-12 view-content">
+				<p class="content-box">{{ object.content }}</p>
+				{% if object.image %}<img src="{{ object.image.url }}" />{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="height-100"></div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "analysis/base.html" %}
+
+{% block title %}error{% endblock %}
+
+{% block content %}
+<script>
+	alert("예상치 못한 에러입니다.\n메인화면으로 이동합니다.");
+	location.href="/";
+</script>
+{% endblock %}

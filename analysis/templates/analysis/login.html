@@ -1,0 +1,43 @@
+{% extends "analysis/base.html" %}
+
+{% block title %}로그인{% endblock %}
+
+{% block script %}
+  {% load static %}<SCRIPT SRC = "{% static 'analysis/assets/js/login.js' %}"></SCRIPT>
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<script>alert("아이디와 비밀번호를 정확하게 입력해주세요.");</script>
+{% endif %}
+
+<div style="height: 70px;"></div>
+<div class="row block-center">
+	<div class="card-box col-5">
+	<form id="login_form" action="." method="POST">{% csrf_token %}
+		<div class="row">
+			<div class="col-12 center"><h2>로그인</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-3 right">ID</div>
+			<div class="ml-1 col-8"><input type="text" name="username" id="username" size="12"/></div>
+		</div>
+		<div class="row">
+			<div class="col-3 right">PASSWORD</div>
+			<div class="ml-1 col-8"><input type="password" name="password" id="password" size="12"/></div>
+		</div>
+		<div class="row">
+			<div class="col-12 center">
+				<input type="button" value="로그인" onClick="login()" />
+				<input type="button" value="회원가입"  onClick="location.href='{% url 'register' %}'" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 center">
+				<h4>아이디가 없으시다면 회원가입을 해주세요.</h4>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+{% endblock %}

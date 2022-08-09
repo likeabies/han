@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<HTML LANG="KO">
+<HEAD>
+	<meta charset="utf-8">
+	<TITLE>{% block title %} AWS / Django Web Application{% endblock %}</TITLE>
+	<META charset="utf-8" />
+	{% load static %}<LINK REL='STYLESHEET' HREF="{% static 'analysis/assets/css/main.css' %}" />
+	{% load static %}<SCRIPT src="{% static 'analysis/assets/js/jquery-3.6.0.min.js' %}" ></SCRIPT>
+	{% block script %}{% endblock %}
+</HEAD>
+<BODY>
+{% include 'analysis/navbar.html' %}
+
+	<DIV ID="container">
+		{% block content %}{% endblock %}
+	</DIV>
+ 
+{% include 'analysis/footer.html' %} 
+
+</BODY>
+</HTML>
