@@ -30,7 +30,23 @@ urlpatterns = [
 	path('user_register_completed/', views.user_register_completed, name='registercompleted'),
  
  	path('error/', views.error_page, name='error'),
+ 	path('no_authority/', views.no_authority_page, name='no_authority'),
+  path('login_requied_page/', views.login_required_page, name='login_required_page'),
 
 	path('notices/', views.notice_list_page, name='noticelist'),
  	path('notice_view/<int:pk>/', views.NoticeView.as_view(), name='noticeview'),
+  
+  path('QnA/', views.QnA_list_page, name='QnAlist'),
+  path('QnA_write/', views.QnA_write_page, name='QnAwrite'),
+  path('QnA_write_res', views.QnA_write_result, name='QnAwriteres'),
+  path('QnA_view/<int:pk>/', views.QnAView.as_view(), name='QnAview'),
+	path('QnA_delete_res/', views.QnA_delete_result, name='QnAdeleteres'),
+	path('QnA_modify/<int:pk>/', views.QnAModifyView.as_view(), name='QnAmodify'),
+	path('QnA_modify_res/', views.QnA_modify_result, name='QnAmodifyres'),
+ 
+	path('reply_list/<article>/', views.reply_list, name='replylist'),
+	path('reply_modify/<int:pk>/', views.ReplyModifyView.as_view(), name='replymodify'),
+	path('reply_write_res/', views.reply_write_result, name='replywriteres'),
+	path('reply_modify_res/', views.reply_modify_result, name='replymodifyres'),
+	path('reply_delete_res/', views.reply_delete_result, name='replydeleteres'),
 ]

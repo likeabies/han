@@ -62,29 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         db_table = 'auth_user'
-        
-        # This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
 
-
-class Notices(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    title = models.CharField(max_length=300)
-    content = models.TextField()
-    registered_date = models.DateTimeField(blank=True, null=True)
-    last_update_date = models.DateTimeField(blank=True, null=True)
-    view_count = models.IntegerField(blank=True, null=True)
-    image = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'notices'
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -92,7 +70,6 @@ class Notices(models.Model):
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
 
 
 class Notices(models.Model):
@@ -107,3 +84,48 @@ class Notices(models.Model):
     class Meta:
         managed = False
         db_table = 'notices'
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+
+
+class Qna(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    title = models.CharField(max_length=300)
+    content = models.TextField()
+    registered_date = models.DateTimeField(auto_now_add=True)
+    last_update_date = models.DateTimeField(auto_now=True)
+    view_count = models.IntegerField(default=0)
+    image = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'QnA'
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+
+
+class QnaReplies(models.Model):
+    article = models.ForeignKey('Qna', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    content = models.TextField()
+    reference_reply_id = models.IntegerField(blank=True, null=True)
+    registered_date = models.DateTimeField(auto_now_add=True)
+    last_update_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        managed = False
+        db_table = 'QnA_replies'
+\
+
+
+

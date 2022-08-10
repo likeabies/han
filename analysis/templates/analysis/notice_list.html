@@ -7,33 +7,45 @@
 
 {% block content %}
 <div class="row block-center board">
-    <div class="col-11">
-        <div class="row">
-            <div class="list-title col-4"><p>제목</p></div>
-            <div class="list-title col-3"><p>등록자</p></div>
-            <div class="list-title col-3"><p>등록일</p></div>
-            <div class="list-title col-2"><p>조회</p></div>
-        </div>
-        {% for article in articles %}
-        <div class="row">
-            <div class="list-contents-title col-4"><p>
-                <a href="{% url 'noticeview' article.id %}">
-                    {{ article.title }}
-                    {% if article.reply_count > 0 %}
-                    [{{ article.reply_count }}]
-                    {% endif %}
-                </a>
-            </p></div>
-            <div class="list-contents col-3"><p>{{ article.user.name }}</p></div>
-            <div class="list-contents col-3"><p>{{ article.registered_date|date:"Y-m-d" }}</p></div>
-            <div class="list-contents col-2"><p>{{ article.view_count }}</p></div>
-        </div>
-        {% empty %}
-        <div class="row margin-10 center">
-            현재 등록된 게시물이 없습니다.
-        </div>
-        {% endfor %}
-    </div>
+	<div class="col-11">
+		<div class="row">
+			<div class="list-title col-4"><p>제목</p></div>
+			<div class="list-title col-3"><p>등록자</p></div>
+			<div class="list-title col-3"><p>등록일</p></div>
+			<div class="list-title col-2"><p>조회</p></div>
+		</div>
+		{% for article in articles %}
+		<div class="row">
+			<div class="list-contents-title col-4"><p>
+				<a href="{% url 'noticeview' article.id %}">
+					{{ article.title }}
+					{% if article.reply_count > 0 %}
+					[{{ article.reply_count }}]
+					{% endif %}
+				</a>
+			</p></div>
+			<div class="list-contents col-3"><p>{{ article.user.name }}</p></div>
+			<div class="list-contents col-3"><p>{{ article.registered_date|date:"Y-m-d" }}</p></div>
+			<div class="list-contents col-2"><p>{{ article.view_count }}</p></div>
+		</div>
+		{% empty %}
+		<div class="row margin-10 center">
+			현재 등록된 게시물이 없습니다.
+		</div>
+		{% endfor %}
+		<!--search-->
+		<div class="row">
+			<div class="col-12 margin-10 center">
+				<form action="." method="POST" id="search_form">{% csrf_token %}
+					<p>
+						제목
+						<input type="text" name="search_text" id="search_text" value="{{ search_text }}" size="8" />
+						<input type="submit" value="검색" />
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="height-100"></div>
 
