@@ -39,6 +39,7 @@ def user_register_idcheck(request):
     return HttpResponse(msg)
 
 
+
 def user_register_result(request):
     if request.method == "POST":
         username = request.POST['username']
