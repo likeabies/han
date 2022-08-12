@@ -38,7 +38,7 @@ urlpatterns = [
   
   path('QnA/', views.QnA_list_page, name='QnAlist'),
   path('QnA_write/', views.QnA_write_page, name='QnAwrite'),
-  path('QnA_write_res', views.QnA_write_result, name='QnAwriteres'),
+  path('QnA_write_res/', views.QnA_write_result, name='QnAwriteres'),
   path('QnA_view/<int:pk>/', views.QnAView.as_view(), name='QnAview'),
 	path('QnA_delete_res/', views.QnA_delete_result, name='QnAdeleteres'),
 	path('QnA_modify/<int:pk>/', views.QnAModifyView.as_view(), name='QnAmodify'),
@@ -49,4 +49,10 @@ urlpatterns = [
 	path('reply_write_res/', views.reply_write_result, name='replywriteres'),
 	path('reply_modify_res/', views.reply_modify_result, name='replymodifyres'),
 	path('reply_delete_res/', views.reply_delete_result, name='replydeleteres'),
+
+  path('CV/', views.CV_list_page, name='CVlist'),
+  path('CV_write/', views.CV_write_page, name='CVwrite'),
+  path('CV_write_res/', views.CV_write_result, name='CVwriteres'),
+  path('CV_view/<int:pk>/', views.CvView.as_view(), name='CVview'),
+	path('CV_delete_res/', views.CV_delete_result, name='CVdeleteres'),
 ]

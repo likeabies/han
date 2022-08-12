@@ -171,8 +171,6 @@ def QnA_list_page(request):
     return render(request, 'analysis/QnA_list.html', args)
 
 
-
-
 # QnA view
 class QnAView(DetailView):
     model = Qna
@@ -371,3 +369,108 @@ def reply_delete_result(request):
 		redirection_page = '/error/'
 
 	return redirect(redirection_page)
+ 
+
+#CV analysis page
+@login_required(login_url='/login/')
+def CV_list_page(request):
+    if request.method == "POST":
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+
+        CVs = Cv.objects.all()
+        list_count = 10
+
+    if search_text:
+        CVs = CVs.filter(title__contains=search_text)
+        
+    if request.user.is_superuser or request.user.is_staff:
+        CVs=CVs
+    else:
+        CVs=CVs.filter(user=request.user)
+
+    paginator = Paginator(CVs, list_count)
+    try:
+        page = int(request.GET['page'])
+    except:
+        page = 1
+    articles = paginator.get_page(page)
+
+    page_count = 10
+    page_list = []
+    first_page = (math.ceil(page / page_count) - 1) * page_count + 1
+    last_page = min([math.ceil(page / page_count) * page_count, paginator.num_pages])
+    for i in range(first_page, last_page + 1):
+        page_list.append(i)
+
+    args = {}
+    args.update({"CVs": CVs})
+    args.update({"search_text": search_text})
+    args.update({"page_list": page_list})
+  
+    return render(request, 'analysis/CV_list.html', args)
+
+
+@login_required(login_url='/login/')
+def CV_write_page(request):
+    args = {}
+
+    return render(request, 'analysis/CV_write.html', args)
+
+
+@login_required
+def CV_write_result(request):
+	if request.method == "POST":
+		title = request.POST['title']
+		job = request.POST['job']
+		ability = request.POST['ability']
+		content = request.POST['content']
+
+	else:
+		title = None
+
+	args = {}
+
+	if request.user and title and content and job:
+		CV = Cv(user=request.user, title=title, job=job, ability=ability, content=content)
+		CV.save()
+    
+		redirection_page = '/CV/'
+
+	else:
+		redirection_page = '/error/'
+
+	return redirect(redirection_page)
+
+
+class CvView(DetailView):
+    model = Cv
+    template_name = 'analysis/CV_view.html'
+
+    def dispatch(self, request, pk):
+        obj = self.get_object()
+        if request.user == obj.user or request.user.is_superuser or request.user.is_staff:
+            return render(request, self.template_name, {"object": obj})
+        else:
+            return redirect('/no_authority/')
+
+
+@login_required
+def CV_delete_result(request):
+    if request.method == "POST":
+        CV_id = request.POST['CV_id']
+    else:
+        CV_id = -1
+
+    args = {}
+
+    CV = Cv.objects.get(id=CV_id)
+
+    if request.user == CV.user:
+        CV.delete()
+        redirection_page = '/CV/'
+    else:
+        redirection_page = '/no_authority/'
+
+    return redirect(redirection_page)

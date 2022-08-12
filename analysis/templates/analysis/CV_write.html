@@ -1,0 +1,80 @@
+{% extends "analysis/base.html" %}
+
+{% block title %} 자기소개서 분석 {% endblock %}
+
+{% block script %}
+{% load static %}<SCRIPT SRC = "{% static 'analysis/assets/js/cv.js' %}"></SCRIPT>
+{% if user.username == "" %}
+<SCRIPT>
+	alert('잘못된 접근입니다.');
+	location.href="{% url 'main' %}";
+</SCRIPT>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row block-center board">
+	<div class="col-10">
+		<form id="write_form" action="{% url 'CVwriteres' %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-12"><h4>자기소개서 분석</h4></div>
+		</div>
+		<div class="row border-top-line">
+			<div class="col-1 right"><p>작성자</p></div>
+			<div class="col-11"><p>{{ user.name }}</p></div>
+		</div>
+		<div class="row">
+			<div class="col-1 right"><p>제목</p></div>
+			<div class="col-11"><input type="text" name="title" id="title" class="form-width-90" /></div>
+		</div>
+		<div class="row">
+			<div class="col-1 right"><p class="middle">직무</p></div>
+			<div class="col-11">
+				<select class="box" name="job" id="job">
+						<option value="" selected="selected">--선택하세요--</option>
+						<option value="IT">IT</option>
+						<option value="건설">건설</option>
+						<option value="경영/관리">경영/관리</option>
+						<option value="마케팅">마케팅</option>
+						<option value="유통">유통</option>
+						<option value="생산">생산</option>
+						<option value="연구개발">연구개발</option>
+						<option value="영업지원">영업지원</option>
+						<option value="영업">영업</option>
+				</select> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-1 right"><p class="middle">직무역량</p></div>
+			<div class="col-11">
+				<select class="box" name="ability" id="ability">
+						<option value="" selected="selected">--선택하세요--</option>
+						<option value="None">선택 없음</option>
+						<option value="대인관계">대인관계</option>
+						<option value="분석적 사고">분석적 사고</option>
+						<option value="성실">성실</option>
+						<option value="의사소통">의사소통</option>
+						<option value="전략적 사고">전략적 사고</option>
+						<option value="전문성">전문성</option>
+						<option value="주인의식">주인의식</option>
+						<option value="자기계발">자기계발</option>
+						<option value="리더십">리더십</option>
+				</select> 
+			</div>
+		</div>
+
+		<div class="row height-400">
+			<div class="col-1 right"><p class="middle">자기소개서</p></div>
+			<div class="col-11"><textarea name="content" id="content" class="form-width-90"></textarea></div>
+		</div>
+		<div class="row">
+			<div class="col-12 center">
+				<input type="button" onClick="writeSend()" value="분석" />
+			</div>
+		</div>
+		</form>
+	</div>
+	<hr/>
+</div>
+{% endblock %}
