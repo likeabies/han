@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'storages',
     
     'analysis',
+    
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

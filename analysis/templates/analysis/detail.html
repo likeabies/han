@@ -1,0 +1,36 @@
+{% extends 'analysis/base.html' %}
+
+{% block title %}회원정보{% endblock title %}
+
+{% block content %}
+
+<h2>회원 정보</h2>
+<table class="table">
+    <tr>
+        <th width='20%'>ID</th>
+        <td>{{ user.username }}</td>      
+    </tr>
+    <tr>
+        <th>이름</th>
+        <td>{{ user.name }}</td>      
+    </tr>
+    <tr>
+        <th>생년월일</th>
+        <td>{{ user.date_of_birth | date:"Y년 n월 j일" }}</td>
+    </tr>
+    <tr>
+        <th>전화번호</th>
+        <td>{{ user.phone }}</td>
+    </tr>
+    <tr>
+        <th>이메일</th>
+        <td>{{ user.email }}</td>
+    </tr>
+</table>
+
+<div class="row">
+<div class="list-contents col-2"><a href={% url 'user_update' user.id %}>회원정보 수정</a></div>
+<div class="list-contents col-2"><a href={% url 'password_change' %}>비밀번호 변경</a></div>
+</div>
+
+{% endblock %}

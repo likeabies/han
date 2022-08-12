@@ -1,0 +1,18 @@
+{% extends 'analysis/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %} 회원정보 수정 {% endblock %}
+
+{% block content %}
+<h1>회원정보 수정</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    {% bootstrap_form form %}
+    <input type="submit" value="Submit"/>
+</form>
+
+<a href="{% url 'delete' %}" class="btn btn-danger">회원탈퇴</a>
+
+{% endblock %}

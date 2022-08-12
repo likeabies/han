@@ -4,7 +4,7 @@
 				<DIV CLASS="col-8 logo-link dark-link"><A href="/">181.9%</A></DIV>
 				<DIV CLASS="col-4 center member-link dark-link">
 				{% if user.username %}
-				<A href="/my_page/">{{ user.name }}님</A> /
+				<A href="/user_detail/">{{ user.name }}님</A> /
 				<A href="/logout/">로그아웃</A>
 				{% else %}
 				<A href="/login/">로그인</A> /
@@ -18,7 +18,11 @@
 				<DIV CLASS="col-3 center sideline dark-link"><A href="/CV/">자기소개서 분석</A></DIV>
 				<DIV CLASS="col-3 center sideline dark-link"><A href="/QnA/">1대1 문의</A></DIV>
 				<DIV CLASS="col-3 center sideline dark-link"><A href="/notices/">공지사항</A></DIV>
-				<DIV CLASS="col-3 center sideline dark-link"><A href="/my_page/">마이페이지</A></DIV>
+				{% if user.username %}
+				<DIV CLASS="col-3 center sideline dark-link"><A href="{% url 'detail' user.id %}">마이페이지</A></DIV>
+				{% else %}
+				<DIV CLASS="col-3 center sideline dark-link"><A href="{% url 'login_required_page' %}">마이페이지</A></DIV>
+				{% endif %}
 			</DIV>
 		</DIV>
 	</DIV>

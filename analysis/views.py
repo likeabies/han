@@ -1,6 +1,6 @@
 import math
 from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from analysis.models import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -8,7 +8,8 @@ from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
-
+from .forms import CustomUserChangeForm
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 
@@ -474,3 +475,47 @@ def CV_delete_result(request):
         redirection_page = '/no_authority/'
 
     return redirect(redirection_page)
+    
+
+# user detail
+@login_required(login_url='/login/')
+def user_detail_page(request, pk):
+    user = get_user_model()
+    user = get_object_or_404(User, pk=pk)
+    context = {
+        'user': user
+    }
+    if request.user:
+        return render(request, 'analysis/detail.html', context)
+    else:
+        return redirect('/login_required_page/')
+
+
+# user update
+@login_required(login_url='/login/')
+def user_update_page(request, pk):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('/user_update_completed/')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'analysis/user_update.html', context)
+
+
+# user delete complete
+def user_delete_completed(request):
+    return render(request, 'analysis/user_delete_done.html')
+
+
+# user delete
+@login_required
+def user_delete_page(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('/user_delete_completed/')
+    return render(request, 'analysis/delete.html')
